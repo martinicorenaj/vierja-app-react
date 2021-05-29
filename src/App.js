@@ -28,7 +28,7 @@ const App = () => {
     
    }
                    
-  console.log(point)
+  
   
 
 
@@ -36,24 +36,39 @@ const App = () => {
   console.log(point[selected])
   let votes=0
   if (point[selected]) {
-    votes=point[selected]+1
-  } 
+    votes=point[selected]
+   
+   } 
+  votes+=1
   
   setPoint({...point,[selected]:votes})
   console.log("printeando point",point)
   
 
   }
-  
-  
+
+const mostVoted=()=> {
+  var masVotos=0
+  for (var anec in point) {
+  if (point[anec]>=masVotos) {
+    masVotos=point[anec]
+    
+}
+return [anec]
+}
+
+ 
+}
 
   return (
     <div>
+     <h2>Anecdote of the day</h2>
      <p> {anecdotes[selected]}</p>
-
-     <p> <Button handleClick={random} text="next anecdote" /></p>
-     <p> the anecdote has {point[selected]} votes </p>
-     <p> <Button handleClick={handleVote} text="vote" /></p>
+     <p> has {point[selected]} votes </p>
+     <Button handleClick={random} text="next anecdote" />
+      <Button handleClick={handleVote} text="vote" />
+    <h2>Anecdote with most votes</h2>
+     <p> {anecdotes[mostVoted]}</p>
     
     </div>
 
