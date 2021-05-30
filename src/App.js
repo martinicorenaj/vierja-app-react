@@ -5,6 +5,22 @@ const Button=(props)=>
 {props.text}
 </button>
 
+const Mostvoted=(props)=> {
+  var masVotos=0
+  for (var anec in props.point) {
+  if (props.point[anec]>=masVotos) {
+    masVotos=props.point[anec]
+    
+}
+
+}
+return (
+ <div>
+ {props.anecdotes[anec]}
+ </div>
+ )
+
+}
 
 
 
@@ -28,10 +44,6 @@ const App = () => {
     
    }
                    
-  
-  
-
-
   const handleVote=()=> {
   console.log(point[selected])
   let votes=0
@@ -47,18 +59,7 @@ const App = () => {
 
   }
 
-const mostVoted=()=> {
-  var masVotos=0
-  for (var anec in point) {
-  if (point[anec]>=masVotos) {
-    masVotos=point[anec]
-    
-}
-return [anec]
-}
 
- 
-}
 
   return (
     <div>
@@ -68,7 +69,7 @@ return [anec]
      <Button handleClick={random} text="next anecdote" />
       <Button handleClick={handleVote} text="vote" />
     <h2>Anecdote with most votes</h2>
-     <p> {anecdotes[mostVoted]}</p>
+     <Mostvoted point={point} anecdotes={anecdotes} />
     
     </div>
 
