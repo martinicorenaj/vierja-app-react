@@ -1,25 +1,81 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from 'react'
+import axios from 'axios'
 
-function App() {
+const BasicInfo=({showFilter,countries, nameToShow})=> {
+const arg=countries.filter(countrie=>countrie.name==="Argentina")
+console.log('que tiene arg',arg)
+
+if (nameToShow.length>10) {
+
+ return (
+ <p>to many matches especify another filter</p>
+ )}
+
+if (nameToShow.length<10) {
+return (
+  <div>
+        <ul>
+       {nameToShow.map(countrie=>
+      
+       <li key={countrie.name}>
+       {countrie.name} 
+       </li>
+      )}
+      </ul>
+  </div>
+ )}
+ if (nameToShow.length>10) {
+
+ return (
+ <p>to many matches especify another filter</p>
+ )}
+
+if (nameToShow.length===1) {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  <div>hola javier</div>
+  )
+} 
+  
+
+}
+
+
+const App=() => {
+
+  const [countries, setCountries]= useState([])
+
+  const [showFilter,setShowFilter]= useState('')
+
+  useEffect (()=>{
+    axios
+         .get('https://restcountries.eu/rest/v2/all')
+         .then(response=>{
+          setCountries(response.data)
+         })
+  },[])
+
+const handleSearchChange=(event)=>{
+    setShowFilter(event.target.value)
+
+
+    
+
+  }
+const nameToShow = countries.filter(countrie=>countrie.name.toLowerCase().includes(showFilter.toLowerCase()))
+
+//usar includes
+
+  return (
+  <div>
+      <div>
+      find countries:
+      <input value={showFilter}
+             onChange={handleSearchChange}
+        />
+      </div>
+  <BasicInfo showFilter={showFilter} countries={countries} nameToShow={nameToShow} />
+     </div>
+  )
 }
 
 export default App;
